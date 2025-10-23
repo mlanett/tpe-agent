@@ -1,0 +1,11 @@
+# Template for gradle.properties
+# Copy this file to gradle.properties and fill in your GitHub credentials
+
+# GitHub Packages credentials for publishing
+# Generate a token at: https://github.com/settings/tokens
+# Required scope: write:packages (for publishing) or read:packages (for consuming)
+#gpr.user=your-github-username
+#gpr.token=ghp_your_personal_access_token_here
+
+# Project version (you can override this)
+version=0.0.1
