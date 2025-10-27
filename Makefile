@@ -12,7 +12,7 @@ build:
 
 clean:
 	./gradlew clean
-	rm -rf monitoring-agent/build
+	rm -rf monitoring-agent/build build
 
 test:
 	./gradlew :monitoring-agent:test --tests ThreadPoolExecutorTest --info --rerun
