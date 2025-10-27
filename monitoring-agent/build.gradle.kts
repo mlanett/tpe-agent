@@ -16,7 +16,6 @@ dependencies {
 
 tasks.test {
     // Enable dynamic agent loading for tests
-    useJUnitPlatform()
     jvmArgs(
         "-XX:+EnableDynamicAgentLoading",
         "-Djdk.attach.allowAttachSelf=true"
