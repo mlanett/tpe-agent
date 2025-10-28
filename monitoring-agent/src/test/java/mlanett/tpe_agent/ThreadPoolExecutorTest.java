@@ -34,7 +34,7 @@ class ThreadPoolExecutorTest {
         testExecutor.submit(slowAction(200));
         Thread.sleep(50); // Ensure slow action starts
 
-        Map<String, ThreadPoolExecutorMetrics> executors = ThreadPoolExecutorRegistry.getInstance().snapshot();        
+        Map<String, ThreadPoolExecutorMetrics> executors = ThreadPoolExecutorRegistry.getInstance().snapshot();
         String discoveredName = executors.keySet().stream()
             .filter(name -> name.startsWith(poolName))
             .findFirst()

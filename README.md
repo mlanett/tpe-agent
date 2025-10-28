@@ -112,7 +112,7 @@ import java.util.Map;
 public class MonitoringService {
     public void reportMetrics() {
         // Get a snapshot of all tracked ThreadPoolExecutors
-        Map<String, ThreadPoolExecutorMetrics> pools = 
+        Map<String, ThreadPoolExecutorMetrics> pools =
             ThreadPoolExecutorRegistry.getInstance().snapshot();
 
         for (Map.Entry<String, ThreadPoolExecutorMetrics> entry : pools.entrySet()) {
