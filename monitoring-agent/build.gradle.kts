@@ -3,6 +3,7 @@ import org.gradle.jvm.tasks.Jar
 plugins {
     `java-library`
     `maven-publish`
+    signing
 }
 
 dependencies {
@@ -74,6 +75,8 @@ publishing {
 
                 developers {
                     developer {
+                        id.set("mlanett")
+                        name.set("Mark Lanett")
                         organization.set("mlanett")
                         organizationUrl.set("https://github.com/mlanett")
                     }
@@ -89,6 +92,17 @@ publishing {
     }
 
     repositories {
+        // Maven Central via new Central Portal
+        maven {
+            name = "MavenCentral"
+            url = uri("https://central.sonatype.com/api/v1/publisher/upload?name=${project.name}&publishingType=AUTOMATIC")
+            credentials {
+                username = project.findProperty("mavenCentral.username") as String? ?: System.getenv("MAVEN_CENTRAL_USERNAME")
+                password = project.findProperty("mavenCentral.password") as String? ?: System.getenv("MAVEN_CENTRAL_PASSWORD")
+            }
+        }
+
+        // Keep GitHub Packages for now
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/mlanett/tpe-agent")
@@ -98,4 +112,19 @@ publishing {
             }
         }
     }
+}
+
+// Configure signing
+signing {
+    // Use signing credentials from gradle.properties or environment variables
+    // For local development: set in ~/.gradle/gradle.properties
+    // For CI/CD: set as environment variables or secrets
+    val signingKey = project.findProperty("signing.key") as String? ?: System.getenv("SIGNING_KEY")
+    val signingPassword = project.findProperty("signing.password") as String? ?: System.getenv("SIGNING_PASSWORD")
+
+    if (signingKey != null && signingPassword != null) {
+        useInMemoryPgpKeys(signingKey, signingPassword)
+    }
+
+    sign(publishing.publications["maven"])
 }

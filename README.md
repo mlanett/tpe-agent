@@ -22,49 +22,47 @@ ThreadPoolExecutor instances are difficult to track manually. This agent automat
 
 #### Using Gradle
 
-Add the GitHub Packages repository and dependency to your `build.gradle` or `build.gradle.kts`:
+Add the dependency to your `build.gradle.kts`:
 
 ```kotlin
-repositories {
-    maven {
-        name = "GitHubPackages"
-        url = uri("https://maven.pkg.github.com/mlanett/tpe-agent")
-        credentials {
-            username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
-            password = project.findProperty("gpr.token") as String? ?: System.getenv("GITHUB_TOKEN")
-        }
-    }
+dependencies {
+    // For using ThreadPoolExecutorMetrics and other classes
+    implementation("mlanett:tpe-agent:0.0.3")
+}
+
+// For using the agent JAR with -javaagent
+val agentConfiguration: Configuration by configurations.creating {
+    isCanBeConsumed = false
+    isCanBeResolved = true
+    isTransitive = false
 }
 
 dependencies {
-    implementation("mlanett:tpe-agent:0.0.2")
-    // For the agent JAR (fat JAR with ByteBuddy included):
-    // Download the tpe-agent-0.0.2-agent.jar artifact
+    agentConfiguration("mlanett:tpe-agent:0.0.3:agent@jar")
+}
+
+tasks.test {
+    doFirst {
+        jvmArgs("-javaagent:${agentConfiguration.singleFile.absolutePath}")
+    }
 }
 ```
 
 #### Using Maven
 
-Add the repository and dependency to your `pom.xml`:
+Add the dependency to your `pom.xml`:
 
 ```xml
-<repositories>
-    <repository>
-        <id>github</id>
-        <url>https://maven.pkg.github.com/mlanett/tpe-agent</url>
-    </repository>
-</repositories>
-
 <dependencies>
     <dependency>
         <groupId>mlanett</groupId>
         <artifactId>tpe-agent</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.3</version>
     </dependency>
 </dependencies>
 ```
 
-**Note**: To authenticate with GitHub Packages, you'll need a [GitHub Personal Access Token](https://github.com/settings/tokens) with the `read:packages` scope.
+**Note**: The library is published to Maven Central, so no additional repository configuration is needed!
 
 ### Usage
 
@@ -75,13 +73,13 @@ There are two ways to use the agent:
 Use the `-javaagent` JVM flag to load the agent at startup. This ensures all ThreadPoolExecutors are tracked from the beginning:
 
 ```bash
-java -javaagent:/path/to/tpe-agent-0.0.2-agent.jar -jar your-application.jar
+java -javaagent:/path/to/tpe-agent-0.0.3-agent.jar -jar your-application.jar
 ```
 
-With Gradle:
+Or download from [GitHub Releases](https://github.com/mlanett/tpe-agent/releases) and use:
 
 ```bash
-./gradlew run -Djava.options="-javaagent:./libs/tpe-agent-0.0.2-agent.jar"
+java -javaagent:./tpe-agent-0.0.3-agent.jar -jar your-application.jar
 ```
 
 #### Option 2: Programmatic Installation
