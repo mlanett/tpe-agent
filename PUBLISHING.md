@@ -62,11 +62,13 @@ signing.password=your-pgp-passphrase
 ### Option 1: Automated via GitHub (Recommended)
 
 1. Update the version in `build.gradle.kts`:
+
    ```kotlin
    version = "0.0.3"
    ```
 
 2. Commit and push:
+
    ```bash
    git add build.gradle.kts
    git commit -m "Release version 0.0.3"
@@ -74,6 +76,7 @@ signing.password=your-pgp-passphrase
    ```
 
 3. Create and push a tag:
+
    ```bash
    git tag v0.0.3
    git push origin v0.0.3
@@ -117,19 +120,23 @@ dependencies {
 ## Troubleshooting
 
 ### "401 Unauthorized" from Maven Central
+
 - Verify your username and password/token are correct
 - Ensure you're using a User Token (not your account password)
 
 ### "Failed to sign"
+
 - Check that `SIGNING_KEY` includes the full key with headers
 - Verify `SIGNING_PASSWORD` matches your key's passphrase
 - Make sure there are no extra spaces or newlines in the secrets
 
 ### "Namespace not verified"
+
 - Complete the namespace verification in central.sonatype.com
 - For `io.github.mlanett`, you may need to create a verification repository
 
 ### Publishing succeeds but artifact not visible
+
 - Maven Central sync can take 10-30 minutes
 - Check central.sonatype.com → Deployments for status
 - First-time publishing may require manual verification
