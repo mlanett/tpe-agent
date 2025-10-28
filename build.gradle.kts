@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "mlanett"
-version = "0.0.3"  // Increment from 0.0.2 for new release
+version = "0.0.4"
 
 subprojects {
     apply(plugin = "java")
