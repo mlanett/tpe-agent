@@ -94,7 +94,7 @@ import mlanett.tpe_agent.ThreadPoolExecutorAgent;
 public class Application {
     public static void main(String[] args) {
         ThreadPoolExecutorAgent.ensureInstalled();
-        
+
         startApplication();
     }
 }
@@ -116,11 +116,11 @@ public class MonitoringService {
         // Get a snapshot of all tracked ThreadPoolExecutors
         Map<String, ThreadPoolExecutorMetrics> pools = 
             ThreadPoolExecutorRegistry.getInstance().snapshot();
-        
+
         for (Map.Entry<String, ThreadPoolExecutorMetrics> entry : pools.entrySet()) {
             String poolName = entry.getKey();
             ThreadPoolExecutorMetrics metrics = entry.getValue();
-            
+
             System.out.printf("Pool: %s%n", poolName);
             System.out.printf("  Queue size: %d%n", metrics.getQueueSize());
             System.out.printf("  Active threads: %d%n", metrics.getActiveCount());
@@ -146,12 +146,12 @@ import java.util.concurrent.TimeUnit;
 public class Application {
     public static void main(String[] args) {
         ThreadPoolExecutorAgent.ensureInstalled();
-        
+
         // Schedule periodic monitoring
         ScheduledExecutorService monitor = Executors.newSingleThreadScheduledExecutor();
         monitor.scheduleAtFixedRate(() -> {
             var snapshot = ThreadPoolExecutorRegistry.getInstance().snapshot();
-            
+
             snapshot.forEach((name, metrics) -> {
                 // Check for potential issues
                 if (metrics.getQueueSize() > 1000) {
@@ -163,7 +163,7 @@ public class Application {
                 }
             });
         }, 60, 60, TimeUnit.SECONDS);
-        
+
         // Start your application
         startApplication();
     }

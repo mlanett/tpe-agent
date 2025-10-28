@@ -54,7 +54,7 @@ publishing {
             version = project.version.toString()
 
             from(components["java"])
-            
+
             // Also publish the agent JAR as an additional artifact
             artifact(agentJar) {
                 classifier = "agent"
@@ -64,21 +64,21 @@ publishing {
                 name.set("ThreadPoolExecutor Agent")
                 description.set("A JVM agent for tracking ThreadPoolExecutor instances to monitor and prevent memory issues")
                 url.set("https://github.com/mlanett/tpe-agent")
-                
+
                 licenses {
                     license {
                         name.set("The Apache License, Version 2.0")
                         url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
                     }
                 }
-                
+
                 developers {
                     developer {
                         organization.set("mlanett")
                         organizationUrl.set("https://github.com/mlanett")
                     }
                 }
-                
+
                 scm {
                     connection.set("scm:git:git://github.com/mlanett/tpe-agent.git")
                     developerConnection.set("scm:git:ssh://github.com:mlanett/tpe-agent.git")
@@ -87,7 +87,7 @@ publishing {
             }
         }
     }
-    
+
     repositories {
         maven {
             name = "GitHubPackages"

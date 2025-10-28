@@ -39,7 +39,7 @@ class ThreadPoolExecutorTest {
             .filter(name -> name.startsWith(poolName))
             .findFirst()
             .orElse(null);
-        
+
         assertNotNull(discoveredName, "Test pool should be discovered. Found pools: " + executors.keySet());
 
         testExecutor.shutdown();
@@ -80,7 +80,7 @@ class ThreadPoolExecutorTest {
         ThreadFactory threadFactory = new ThreadFactory() {
             @SuppressWarnings("unused") // Used by reflection in ThreadPoolExecutorRegistry
             private final String namePrefix = poolName + "-thread-";
-            
+
             @Override
             public Thread newThread(Runnable runnable) {
                 Thread thread = new Thread(runnable, poolName + "-" + threadCounter.incrementAndGet());
@@ -88,7 +88,7 @@ class ThreadPoolExecutorTest {
                 return thread;
             }
         };
-        
+
         return new ThreadPoolExecutor(
             /* core pool size */ 1,
             /* maximum pool size */ 1,

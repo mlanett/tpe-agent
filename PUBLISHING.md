@@ -164,19 +164,19 @@ jobs:
     permissions:
       contents: read
       packages: write
-    
+
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
           java-version: '11'
           distribution: 'temurin'
-      
+
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
-      
+
       - name: Build and publish
         run: ./gradlew publish
         env:
