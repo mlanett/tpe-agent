@@ -24,36 +24,6 @@ bin/
 # VS Code
 .vscode/
 
-# NetBeans
-nbproject/
-nbbuild/
-dist/
-nbdist/
-
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Thumbnails
-._*
-
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-
 # Log files
 *.log
 
@@ -65,16 +35,3 @@ Temporary Items
 *.zip
 *.tar.gz
 *.rar
-
-# JVM crash logs
-hs_err_pid*
-replay_pid*
-
-# Temporary files
-*.tmp
-*.bak
-*.swp
-*~
-
-# Test output
-test-output/
