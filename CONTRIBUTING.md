@@ -130,8 +130,8 @@ Only project maintainers can publish releases. The process is:
 3. Commit and tag the release:
 
    ```bash
-   git tag -a v1.0.0 -m "Release version 1.0.0"
-   git push origin v1.0.0
+   git tag -a v0.0.2 -m "Release version 0.0.2"
+   git push origin v0.0.2
    ```
 
 4. Publish to GitHub Packages:

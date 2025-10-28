@@ -37,9 +37,9 @@ repositories {
 }
 
 dependencies {
-    implementation("mlanett:tpe-agent:1.0.0")
+    implementation("mlanett:tpe-agent:0.0.2")
     // For the agent JAR (fat JAR with ByteBuddy included):
-    // Download the tpe-agent-1.0.0-agent.jar artifact
+    // Download the tpe-agent-0.0.2-agent.jar artifact
 }
 ```
 
@@ -59,7 +59,7 @@ Add the repository and dependency to your `pom.xml`:
     <dependency>
         <groupId>mlanett</groupId>
         <artifactId>tpe-agent</artifactId>
-        <version>1.0.0</version>
+        <version>0.0.2</version>
     </dependency>
 </dependencies>
 ```
@@ -75,13 +75,13 @@ There are two ways to use the agent:
 Use the `-javaagent` JVM flag to load the agent at startup. This ensures all ThreadPoolExecutors are tracked from the beginning:
 
 ```bash
-java -javaagent:/path/to/tpe-agent-1.0.0-agent.jar -jar your-application.jar
+java -javaagent:/path/to/tpe-agent-0.0.2-agent.jar -jar your-application.jar
 ```
 
 With Gradle:
 
 ```bash
-./gradlew run -Djava.options="-javaagent:./libs/tpe-agent-1.0.0-agent.jar"
+./gradlew run -Djava.options="-javaagent:./libs/tpe-agent-0.0.2-agent.jar"
 ```
 
 #### Option 2: Programmatic Installation

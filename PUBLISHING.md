@@ -22,7 +22,7 @@ Create a `gradle.properties` file in the project root (it's gitignored) or in `~
 ```properties
 gpr.user=your-github-username
 gpr.token=ghp_your_personal_access_token_here
-version=1.0.0
+version=0.0.2
 ```
 
 ### Option 2: Using Environment Variables
@@ -53,7 +53,7 @@ export GITHUB_TOKEN=ghp_your_personal_access_token_here
    Or with inline version:
 
    ```bash
-   ./gradlew publish -Pversion=1.0.0
+   ./gradlew publish -Pversion=0.0.2
    ```
 
 4. **Verify**: Check your GitHub repository's Packages tab to confirm the package was published
@@ -81,7 +81,7 @@ Before publishing a new version:
 - [ ] README is up to date
 - [ ] Version number is updated
 - [ ] Changelog is updated (if you create one)
-- [ ] Git tag is created: `git tag v1.0.0 && git push origin v1.0.0`
+- [ ] Git tag is created: `git tag v0.0.2 && git push origin v0.0.2`
 
 ## Consuming the Package
 
@@ -102,7 +102,7 @@ repositories {
 }
 
 dependencies {
-    implementation("mlanett:tpe-agent:1.0.0")
+    implementation("mlanett:tpe-agent:0.0.2")
 }
 ```
 
@@ -120,7 +120,7 @@ dependencies {
     <dependency>
         <groupId>mlanett</groupId>
         <artifactId>tpe-agent</artifactId>
-        <version>1.0.0</version>
+        <version>0.0.2</version>
     </dependency>
 </dependencies>
 ```
