@@ -2,7 +2,7 @@ plugins {
     idea
 }
 
-group = "mlanett"
+group = "io.github.mlanett"
 version = "0.0.11"
 
 subprojects {

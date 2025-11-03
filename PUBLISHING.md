@@ -33,6 +33,28 @@ gpg --armor --export-secret-keys YOUR_KEY_ID > private-key.asc
 # Your passphrase is your SIGNING_PASSWORD
 ```
 
+**IMPORTANT: Upload your public key to a keyserver**
+
+Maven Central requires your public key to be available on a PGP keyserver. After generating your key:
+
+```bash
+# Get your key ID from the previous step
+gpg --list-secret-keys --keyid-format=long
+
+# Export your public key
+gpg --armor --export YOUR_KEY_ID > public-key.asc
+
+# Upload to a keyserver (Maven Central checks multiple servers)
+gpg --keyserver keyserver.ubuntu.com --send-keys YOUR_KEY_ID
+gpg --keyserver pgp.mit.edu --send-keys YOUR_KEY_ID
+gpg --keyserver keys.openpgp.org --send-keys YOUR_KEY_ID
+
+# Verify it's been uploaded (may take a few minutes to propagate)
+gpg --keyserver keyserver.ubuntu.com --recv-keys YOUR_KEY_ID
+```
+
+**Note**: Keyserver propagation can take several minutes to hours. Wait for the upload to propagate before publishing.
+
 ### 3. Configure Secrets
 
 #### For GitHub Actions (Automated Publishing)

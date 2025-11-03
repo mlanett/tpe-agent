@@ -53,7 +53,9 @@ tasks.assemble { dependsOn(agentJar) }
 // This plugin handles Central Publisher Portal configuration automatically
 // OSSRH was sunset on June 30, 2025, replaced by Central Publisher Portal
 mavenPublishing {
-    coordinates("mlanett", "tpe-agent", project.version.toString())
+    // Use io.github.mlanett as namespace (recommended for GitHub users)
+    // If you want to use "mlanett", you need to verify the namespace at https://central.sonatype.com
+    coordinates("io.github.mlanett", "tpe-agent", project.version.toString())
     
     pom {
         name.set("ThreadPoolExecutor Agent")
