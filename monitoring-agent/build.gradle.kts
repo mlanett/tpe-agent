@@ -100,7 +100,9 @@ publishing {
         if (mavenCentralUsername != null && mavenCentralPassword != null) {
             maven {
                 name = "MavenCentral"
-                url = uri("https://central.sonatype.com/api/v1/publisher/upload?name=${project.name}&publishingType=AUTOMATIC")
+                // Use OSSRH staging repository for publishing
+                // After publishing, artifacts are automatically released to Maven Central
+                url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
                 credentials {
                     username = mavenCentralUsername
                     password = mavenCentralPassword
