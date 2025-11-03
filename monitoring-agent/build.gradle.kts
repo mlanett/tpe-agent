@@ -112,4 +112,9 @@ afterEvaluate {
             classifier = "agent"
         }
     }
+    
+    // Fix task dependency: ensure metadata generation waits for javadoc JAR
+    tasks.named("generateMetadataFileForMavenPublication").configure {
+        dependsOn(tasks.named("plainJavadocJar"))
+    }
 }

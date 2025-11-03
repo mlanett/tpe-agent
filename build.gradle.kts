@@ -18,8 +18,9 @@ subprojects {
     configure<JavaPluginExtension> {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-        withSourcesJar()
-        withJavadocJar()  // Required for Maven Central
+        // Don't automatically add sourcesJar/javadocJar for all subprojects
+        // Let plugins (like vanniktech maven-publish) handle this automatically
+        // withSourcesJar() and withJavadocJar() are handled by the vanniktech plugin
     }
 
     tasks.withType<Test> {
