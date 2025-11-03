@@ -17,6 +17,7 @@ clean: # Removes all build artifacts
 
 test: # Run all tests
 	./gradlew :monitoring-agent:test --tests ThreadPoolExecutorTest --info --rerun
+	./gradlew :example:run # End-to-end demonstration and proof that the agent is working.
 
 publish:
 	./gradlew publish
