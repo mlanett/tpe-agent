@@ -86,7 +86,6 @@ signing.password=your-pgp-passphrase
    - Build the project
    - Sign all artifacts
    - Publish to Maven Central (auto-released)
-   - Publish to GitHub Packages
    - Create a GitHub Release with the agent JAR attached
 
 5. Verify the release:

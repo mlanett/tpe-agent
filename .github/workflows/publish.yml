@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write  # For creating GitHub releases
-      packages: write  # For GitHub Packages
 
     steps:
       - name: Checkout code
@@ -37,13 +36,6 @@ jobs:
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
         run: |
           ./gradlew publish -Pversion=${{ steps.get_version.outputs.VERSION }} --no-daemon
-
-      - name: Publish to GitHub Packages
-        env:
-          GITHUB_ACTOR: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          ./gradlew publishMavenPublicationToGitHubPackagesRepository -Pversion=${{ steps.get_version.outputs.VERSION }} --no-daemon
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2

@@ -101,16 +101,6 @@ publishing {
                 password = project.findProperty("mavenCentral.password") as String? ?: System.getenv("MAVEN_CENTRAL_PASSWORD")
             }
         }
-
-        // Keep GitHub Packages for now
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/mlanett/tpe-agent")
-            credentials {
-                username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("gpr.token") as String? ?: System.getenv("GITHUB_TOKEN")
-            }
-        }
     }
 }
 
@@ -124,7 +114,10 @@ signing {
 
     if (signingKey != null && signingPassword != null) {
         useInMemoryPgpKeys(signingKey, signingPassword)
+        // Only sign if credentials are available
+        sign(publishing.publications["maven"])
+    } else {
+        // Skip signing if no credentials - useful for local development/testing
+        logger.warn("Signing credentials not found. Publications will not be signed.")
     }
-
-    sign(publishing.publications["maven"])
 }
