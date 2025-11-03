@@ -1,4 +1,5 @@
 import org.gradle.jvm.tasks.Jar
+import org.gradle.plugins.signing.SigningExtension
 
 plugins {
     `java-library`
@@ -91,10 +92,14 @@ mavenPublishing {
         publishToMavenCentral()
         
         // Configure signing (handled by plugin)
-        val signingKey = project.findProperty("signing.key") as String? ?: System.getenv("SIGNING_KEY")
+        val signingKey = (project.findProperty("signing.key") as String? ?: System.getenv("SIGNING_KEY"))
+            ?.replace("\\n", "\n")
         val signingPassword = project.findProperty("signing.password") as String? ?: System.getenv("SIGNING_PASSWORD")
         
         if (signingKey != null && signingPassword != null) {
+            extensions.configure<SigningExtension>("signing") {
+                useInMemoryPgpKeys(signingKey, signingPassword)
+            }
             signAllPublications()
         } else {
             logger.warn("Signing credentials not found. Publications will not be signed.")
