@@ -8,14 +8,14 @@ help:
 	@echo "  publish  - Publishes the library to GitHub Packages"
 	@echo "  patch    - Increments the patch version in build.gradle.kts"
 
-build:
+build: # Compiles the code and builds all artifacts
 	./gradlew build
 
-clean:
+clean: # Removes all build artifacts
 	./gradlew clean
 	rm -rf monitoring-agent/build build
 
-test:
+test: # Run all tests
 	./gradlew :monitoring-agent:test --tests ThreadPoolExecutorTest --info --rerun
 
 publish:
@@ -30,3 +30,9 @@ patch:
 	new_version="$$major.$$minor.$$new_patch"; \
 	echo "Updating version from $$current_version to $$new_version"; \
 	sed -i.bak "s/^version = \"$$current_version\"/version = \"$$new_version\"/" build.gradle.kts && rm build.gradle.kts.bak
+
+tag: # Commit and publish the current version. Use in combination e.g. make patch tag
+	@current_version=$$(grep '^version = ' build.gradle.kts | sed 's/version = "\(.*\)"/\1/'); \
+	git commit -m v$$current_version build.gradle.kts || true; \
+	git tag -a v$$current_version -m v$$current_version; \
+	git push origin v$$current_version;
