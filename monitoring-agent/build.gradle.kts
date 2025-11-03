@@ -83,8 +83,14 @@ mavenPublishing {
         }
     }
     
-    val mavenCentralUsername = project.findProperty("mavenCentral.username") as String? ?: System.getenv("MAVEN_CENTRAL_USERNAME")
-    val mavenCentralPassword = project.findProperty("mavenCentral.password") as String? ?: System.getenv("MAVEN_CENTRAL_PASSWORD")
+    val mavenCentralUsername =
+        (project.findProperty("mavenCentralUsername") as String?)
+            ?: System.getenv("ORG_GRADLE_PROJECT_mavenCentralUsername")
+            ?: System.getenv("MAVEN_CENTRAL_USERNAME")
+    val mavenCentralPassword =
+        (project.findProperty("mavenCentralPassword") as String?)
+            ?: System.getenv("ORG_GRADLE_PROJECT_mavenCentralPassword")
+            ?: System.getenv("MAVEN_CENTRAL_PASSWORD")
     
     if (mavenCentralUsername != null && mavenCentralPassword != null) {
         // Publish to Maven Central via Central Publisher Portal
@@ -92,9 +98,16 @@ mavenPublishing {
         publishToMavenCentral()
         
         // Configure signing (handled by plugin)
-        val signingKey = (project.findProperty("signing.key") as String? ?: System.getenv("SIGNING_KEY"))
+        val signingKey = (
+            project.findProperty("signing.key") as String?
+                ?: System.getenv("ORG_GRADLE_PROJECT_signingKey")
+                ?: System.getenv("SIGNING_KEY")
+        )
             ?.replace("\\n", "\n")
-        val signingPassword = project.findProperty("signing.password") as String? ?: System.getenv("SIGNING_PASSWORD")
+        val signingPassword =
+            (project.findProperty("signing.password") as String?)
+                ?: System.getenv("ORG_GRADLE_PROJECT_signingPassword")
+                ?: System.getenv("SIGNING_PASSWORD")
         
         if (signingKey != null && signingPassword != null) {
             extensions.configure<SigningExtension>("signing") {
