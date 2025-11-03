@@ -119,8 +119,6 @@ mavenPublishing {
         } else {
             logger.warn("Signing credentials not found. Publications will not be signed.")
         }
-    } else {
-        logger.warn("Maven Central credentials not found. Publishing to Maven Central will be skipped.")
     }
 }
 
