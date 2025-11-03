@@ -4,6 +4,7 @@ plugins {
     `java-library`
     `maven-publish`
     signing
+    id("com.vanniktech.maven.publish") version "0.34.0"
 }
 
 dependencies {
@@ -47,88 +48,68 @@ val agentJar = tasks.register<Jar>("agentJar") {
 
 tasks.assemble { dependsOn(agentJar) }
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "mlanett"
-            artifactId = "tpe-agent"
-            version = project.version.toString()
-
-            from(components["java"])
-
-            // Also publish the agent JAR as an additional artifact
-            artifact(agentJar) {
-                classifier = "agent"
+// Configure Maven Central publishing using vanniktech plugin
+// This plugin handles Central Publisher Portal configuration automatically
+// OSSRH was sunset on June 30, 2025, replaced by Central Publisher Portal
+mavenPublishing {
+    coordinates("mlanett", "tpe-agent", project.version.toString())
+    
+    pom {
+        name.set("ThreadPoolExecutor Agent")
+        description.set("A JVM agent for tracking ThreadPoolExecutor instances to monitor and prevent memory issues")
+        url.set("https://github.com/mlanett/tpe-agent")
+        
+        licenses {
+            license {
+                name.set("The Apache License, Version 2.0")
+                url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
             }
-
-            pom {
-                name.set("ThreadPoolExecutor Agent")
-                description.set("A JVM agent for tracking ThreadPoolExecutor instances to monitor and prevent memory issues")
-                url.set("https://github.com/mlanett/tpe-agent")
-
-                licenses {
-                    license {
-                        name.set("The Apache License, Version 2.0")
-                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                    }
-                }
-
-                developers {
-                    developer {
-                        id.set("mlanett")
-                        name.set("Mark Lanett")
-                        organization.set("mlanett")
-                        organizationUrl.set("https://github.com/mlanett")
-                    }
-                }
-
-                scm {
-                    connection.set("scm:git:git://github.com/mlanett/tpe-agent.git")
-                    developerConnection.set("scm:git:ssh://github.com:mlanett/tpe-agent.git")
-                    url.set("https://github.com/mlanett/tpe-agent")
-                }
+        }
+        
+        developers {
+            developer {
+                id.set("mlanett")
+                name.set("Mark Lanett")
+                organization.set("mlanett")
+                organizationUrl.set("https://github.com/mlanett")
             }
+        }
+        
+        scm {
+            connection.set("scm:git:git://github.com/mlanett/tpe-agent.git")
+            developerConnection.set("scm:git:ssh://github.com:mlanett/tpe-agent.git")
+            url.set("https://github.com/mlanett/tpe-agent")
         }
     }
-
-    repositories {
-        // Maven Central via new Central Portal
-        // Only configure if credentials are available (for CI/CD)
-        val mavenCentralUsername = project.findProperty("mavenCentral.username") as String? ?: System.getenv("MAVEN_CENTRAL_USERNAME")
-        val mavenCentralPassword = project.findProperty("mavenCentral.password") as String? ?: System.getenv("MAVEN_CENTRAL_PASSWORD")
+    
+    val mavenCentralUsername = project.findProperty("mavenCentral.username") as String? ?: System.getenv("MAVEN_CENTRAL_USERNAME")
+    val mavenCentralPassword = project.findProperty("mavenCentral.password") as String? ?: System.getenv("MAVEN_CENTRAL_PASSWORD")
+    
+    if (mavenCentralUsername != null && mavenCentralPassword != null) {
+        // Publish to Maven Central via Central Publisher Portal
+        // The plugin handles the Central Portal API configuration automatically
+        publishToMavenCentral()
         
-        if (mavenCentralUsername != null && mavenCentralPassword != null) {
-            maven {
-                name = "MavenCentral"
-                // Use OSSRH staging repository for publishing
-                // After publishing, you may need to close and release the staging repository
-                // Or configure auto-release if available
-                url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-                credentials {
-                    username = mavenCentralUsername
-                    password = mavenCentralPassword
-                }
-            }
+        // Configure signing (handled by plugin)
+        val signingKey = project.findProperty("signing.key") as String? ?: System.getenv("SIGNING_KEY")
+        val signingPassword = project.findProperty("signing.password") as String? ?: System.getenv("SIGNING_PASSWORD")
+        
+        if (signingKey != null && signingPassword != null) {
+            signAllPublications()
         } else {
-            logger.warn("Maven Central credentials not found. Publishing to Maven Central will be skipped.")
+            logger.warn("Signing credentials not found. Publications will not be signed.")
         }
+    } else {
+        logger.warn("Maven Central credentials not found. Publishing to Maven Central will be skipped.")
     }
 }
 
-// Configure signing
-signing {
-    // Use signing credentials from gradle.properties or environment variables
-    // For local development: set in ~/.gradle/gradle.properties
-    // For CI/CD: set as environment variables or secrets
-    val signingKey = project.findProperty("signing.key") as String? ?: System.getenv("SIGNING_KEY")
-    val signingPassword = project.findProperty("signing.password") as String? ?: System.getenv("SIGNING_PASSWORD")
-
-    if (signingKey != null && signingPassword != null) {
-        useInMemoryPgpKeys(signingKey, signingPassword)
-        // Only sign if credentials are available
-        sign(publishing.publications["maven"])
-    } else {
-        // Skip signing if no credentials - useful for local development/testing
-        logger.warn("Signing credentials not found. Publications will not be signed.")
+// Add the agent JAR as an additional artifact to the plugin's publication
+// This needs to be done after the plugin has created the publication
+afterEvaluate {
+    publishing.publications.named<MavenPublication>("maven") {
+        artifact(agentJar) {
+            classifier = "agent"
+        }
     }
 }
