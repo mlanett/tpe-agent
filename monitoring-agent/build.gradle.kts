@@ -101,8 +101,9 @@ publishing {
             maven {
                 name = "MavenCentral"
                 // Use OSSRH staging repository for publishing
-                // After publishing, artifacts are automatically released to Maven Central
-                url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                // After publishing, you may need to close and release the staging repository
+                // Or configure auto-release if available
+                url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
                 credentials {
                     username = mavenCentralUsername
                     password = mavenCentralPassword
