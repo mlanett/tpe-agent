@@ -37,21 +37,7 @@ jobs:
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
         run: |
-          # Debug: Check if secrets are set (without exposing values)
-          echo "Checking secrets..."
-          if [ -z "$SIGNING_KEY" ]; then
-            echo "ERROR: SIGNING_KEY is not set"
-            exit 1
-          fi
-          if [ -z "$SIGNING_PASSWORD" ]; then
-            echo "ERROR: SIGNING_PASSWORD is not set"
-            exit 1
-          fi
-          echo "SIGNING_KEY length: ${#SIGNING_KEY}"
-          echo "SIGNING_KEY starts with: ${SIGNING_KEY:0:50}..."
-          echo "SIGNING_PASSWORD is set: $([ -n "$SIGNING_PASSWORD" ] && echo "yes" || echo "no")"
-          
-          ./gradlew publish -Pversion=${{ steps.get_version.outputs.VERSION }} --no-daemon --stacktrace
+          ./gradlew publish -Pversion=${{ steps.get_version.outputs.VERSION }} --no-daemon
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2

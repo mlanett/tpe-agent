@@ -100,52 +100,24 @@ mavenPublishing {
         publishToMavenCentral()
         
         // Configure signing (handled by plugin)
-        val signingKeyRaw = (
+        val signingKey = (
             project.findProperty("signing.key") as String?
                 ?: System.getenv("ORG_GRADLE_PROJECT_signingKey")
                 ?: System.getenv("SIGNING_KEY")
         )
-        // Handle newlines: GitHub secrets may have literal \n or actual newlines
-        val signingKey = signingKeyRaw
-            ?.replace("\\n", "\n")  // Replace escaped newlines
-            ?.replace("\r\n", "\n") // Normalize Windows line endings
-            ?.replace("\r", "\n")   // Normalize Mac line endings
+            ?.replace("\\n", "\n")
         val signingPassword =
             (project.findProperty("signing.password") as String?)
                 ?: System.getenv("ORG_GRADLE_PROJECT_signingPassword")
                 ?: System.getenv("SIGNING_PASSWORD")
         
         if (signingKey != null && signingPassword != null) {
-            // Debug: Log key info (without exposing the full key)
-            logger.lifecycle("Signing configuration:")
-            logger.lifecycle("  - Signing key present: ${signingKey.isNotBlank()}")
-            logger.lifecycle("  - Signing key length: ${signingKey.length}")
-            logger.lifecycle("  - Signing key starts with: ${signingKey.take(50)}...")
-            logger.lifecycle("  - Signing key ends with: ...${signingKey.takeLast(50)}")
-            logger.lifecycle("  - Signing key contains BEGIN: ${signingKey.contains("BEGIN PGP PRIVATE KEY")}")
-            logger.lifecycle("  - Signing key contains END: ${signingKey.contains("END PGP PRIVATE KEY")}")
-            logger.lifecycle("  - Signing password present: ${signingPassword.isNotBlank()}")
-            
-            try {
-                extensions.configure<SigningExtension>("signing") {
-                    useInMemoryPgpKeys(signingKey, signingPassword)
-                }
-                signAllPublications()
-                logger.lifecycle("✓ Signing configured successfully")
-            } catch (e: Exception) {
-                logger.error("✗ Failed to configure signing", e)
-                logger.error("Error message: ${e.message}")
-                logger.error("Error class: ${e.javaClass.name}")
-                if (e.cause != null) {
-                    logger.error("Caused by: ${e.cause}")
-                }
-                throw e
+            extensions.configure<SigningExtension>("signing") {
+                useInMemoryPgpKeys(signingKey, signingPassword)
             }
+            signAllPublications()
         } else {
             logger.warn("Signing credentials not found. Publications will not be signed.")
-            logger.warn("  - SIGNING_KEY present: ${System.getenv("SIGNING_KEY") != null}")
-            logger.warn("  - ORG_GRADLE_PROJECT_signingKey present: ${System.getenv("ORG_GRADLE_PROJECT_signingKey") != null}")
-            logger.warn("  - signing.key property present: ${project.findProperty("signing.key") != null}")
         }
     } else {
         logger.warn("Maven Central credentials not found. Publishing to Maven Central will be skipped.")
