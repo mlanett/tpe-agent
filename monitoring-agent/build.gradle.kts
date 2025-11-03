@@ -93,13 +93,21 @@ publishing {
 
     repositories {
         // Maven Central via new Central Portal
-        maven {
-            name = "MavenCentral"
-            url = uri("https://central.sonatype.com/api/v1/publisher/upload?name=${project.name}&publishingType=AUTOMATIC")
-            credentials {
-                username = project.findProperty("mavenCentral.username") as String? ?: System.getenv("MAVEN_CENTRAL_USERNAME")
-                password = project.findProperty("mavenCentral.password") as String? ?: System.getenv("MAVEN_CENTRAL_PASSWORD")
+        // Only configure if credentials are available (for CI/CD)
+        val mavenCentralUsername = project.findProperty("mavenCentral.username") as String? ?: System.getenv("MAVEN_CENTRAL_USERNAME")
+        val mavenCentralPassword = project.findProperty("mavenCentral.password") as String? ?: System.getenv("MAVEN_CENTRAL_PASSWORD")
+        
+        if (mavenCentralUsername != null && mavenCentralPassword != null) {
+            maven {
+                name = "MavenCentral"
+                url = uri("https://central.sonatype.com/api/v1/publisher/upload?name=${project.name}&publishingType=AUTOMATIC")
+                credentials {
+                    username = mavenCentralUsername
+                    password = mavenCentralPassword
+                }
             }
+        } else {
+            logger.warn("Maven Central credentials not found. Publishing to Maven Central will be skipped.")
         }
     }
 }
