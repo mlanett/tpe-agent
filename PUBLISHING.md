@@ -142,6 +142,7 @@ dependencies {
 
 ## Reference
 
-- [Maven Central Portal Documentation](https://central.sonatype.org/publish/publish-portal-gradle/)
-- [Gradle Signing Plugin](https://docs.gradle.org/current/userguide/signing_plugin.html)
 - [GitHub Actions Setup Java](https://github.com/actions/setup-java)
+- [Gradle Signing Plugin](https://docs.gradle.org/current/userguide/signing_plugin.html)
+- [Maven Central Portal Documentation](https://central.sonatype.org/publish/publish-portal-gradle/)
+- [Vanniktech Maven Publish Plugin](https://github.com/vanniktech/gradle-maven-publish-plugin)
