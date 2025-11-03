@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "io.github.mlanett"
-version = "0.0.13"
+version = "0.0.14"
 
 subprojects {
     apply(plugin = "java")
