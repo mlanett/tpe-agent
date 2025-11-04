@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class ExampleApplication {
     
-    private static final long RUN_DURATION_SECONDS = 60;
+    private static final long RUN_DURATION_SECONDS = 10;
     private static final long REPORT_INTERVAL_SECONDS = 5;
     
     public static void main(String[] args) throws InterruptedException {
