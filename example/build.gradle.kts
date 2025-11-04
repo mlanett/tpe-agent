@@ -28,9 +28,7 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.1")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.1")
 
-    if (agentConfiguration != null) {
-        add(agentConfiguration.name, "io.github.mlanett:tpe-agent:$AGENT_VERSION:agent@jar")
-    }
+    add(agentConfiguration.name, "io.github.mlanett:tpe-agent:$AGENT_VERSION:agent@jar")
 }
 
 application {
