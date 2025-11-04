@@ -1,4 +1,4 @@
-package com.mlanett.tpe.monitoring;
+package mlanett.tpe_agent;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;

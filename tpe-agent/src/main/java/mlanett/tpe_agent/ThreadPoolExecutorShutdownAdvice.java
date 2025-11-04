@@ -1,4 +1,4 @@
-package com.mlanett.tpe.monitoring;
+package mlanett.tpe_agent;
 
 import net.bytebuddy.asm.Advice;
 

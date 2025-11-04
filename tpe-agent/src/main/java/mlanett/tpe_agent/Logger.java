@@ -1,4 +1,4 @@
-package com.mlanett.tpe.monitoring;
+package mlanett.tpe_agent;
 
 final class Logger {
     private final String module;

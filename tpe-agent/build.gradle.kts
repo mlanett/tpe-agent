@@ -39,8 +39,8 @@ val agentJar = tasks.register<Jar>("agentJar") {
 
     manifest {
         attributes(
-            "Premain-Class" to "com.mlanett.tpe.monitoring.ThreadPoolExecutorAgent",
-            "Agent-Class" to "com.mlanett.tpe.monitoring.ThreadPoolExecutorAgent",
+            "Premain-Class" to "mlanett.tpe_agent.ThreadPoolExecutorAgent",
+            "Agent-Class" to "mlanett.tpe_agent.ThreadPoolExecutorAgent",
             "Can-Redefine-Classes" to "true",
             "Can-Retransform-Classes" to "true",
             "Boot-Class-Path" to "tpe-agent-agent.jar"

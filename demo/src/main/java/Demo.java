@@ -1,5 +1,5 @@
-import com.mlanett.tpe.monitoring.ThreadPoolExecutorMetrics;
-import com.mlanett.tpe.monitoring.ThreadPoolExecutorRegistry;
+import mlanett.tpe_agent.ThreadPoolExecutorMetrics;
+import mlanett.tpe_agent.ThreadPoolExecutorRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
