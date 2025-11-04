@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Demonstration of ThreadPoolExecutor monitoring agent.
  * Creates multiple thread pools with different workloads and periodically logs their status.
  */
-public class MonitoringDemo {
+public class Demo {
     private static final int RUN_DURATION_SECONDS = 60;
     private static final int MONITORING_INTERVAL_SECONDS = 2;
     private static final AtomicInteger threadCounter = new AtomicInteger(0);
@@ -20,7 +20,7 @@ public class MonitoringDemo {
     private volatile boolean running = true;
 
     public static void main(String[] args) {
-        MonitoringDemo demo = new MonitoringDemo();
+        Demo demo = new Demo();
         try {
             demo.run();
         } catch (InterruptedException e) {

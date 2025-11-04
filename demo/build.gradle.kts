@@ -7,7 +7,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("MonitoringDemo")
+    mainClass.set("Demo")
 }
 
 evaluationDependsOn(":tpe-agent")
