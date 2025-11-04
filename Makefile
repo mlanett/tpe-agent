@@ -23,7 +23,8 @@ run-demo:
 
 test: # Run all tests
 	./gradlew :monitoring-agent:test --tests ThreadPoolExecutorTest --info --rerun
-	# ./gradlew :example:run # End-to-end demonstration and proof that the agent is working.
+	./gradlew :demo:run # End-to-end demonstration and proof that the agent is working.
+	./gradlew :example:run # End-to-end demonstration and proof that the agent is working.
 
 publish:
 	./gradlew publish
