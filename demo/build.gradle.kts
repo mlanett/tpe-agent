@@ -2,18 +2,20 @@ plugins {
     application
 }
 
+val AGENT = if (true) ":tpe-agent" else ":monitoring-agent"
+
 dependencies {
-    implementation(project(":tpe-agent"))
+    implementation(project(AGENT))
 }
 
 application {
     mainClass.set("Demo")
 }
 
-evaluationDependsOn(":tpe-agent")
+evaluationDependsOn(AGENT)
 
 tasks {
-    val monitoringAgentAgentJar = project(":tpe-agent").tasks.named("agentJar")
+    val monitoringAgentAgentJar = project(AGENT).tasks.named("agentJar")
 
     named<JavaExec>("run") {
         dependsOn(monitoringAgentAgentJar)
