@@ -37,12 +37,13 @@ val agentJar = tasks.register<Jar>("agentJar") {
     })
 
     manifest {
+        val agentFileName = archiveFileName.get()
         attributes(
             "Premain-Class" to "mlanett.tpe_agent.ThreadPoolExecutorAgent",
             "Agent-Class" to "mlanett.tpe_agent.ThreadPoolExecutorAgent",
             "Can-Redefine-Classes" to "true",
             "Can-Retransform-Classes" to "true",
-            "Boot-Class-Path" to "monitoring-agent-agent.jar"
+            "Boot-Class-Path" to agentFileName
         )
     }
 }

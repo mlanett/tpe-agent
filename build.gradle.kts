@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "io.github.mlanett"
-// version = "0.0.15"
+version = "0.0.15"
 
 subprojects {
     apply(plugin = "java")
@@ -13,7 +13,7 @@ subprojects {
     }
 
     group = rootProject.group
-    // version = rootProject.version
+    version = rootProject.version
 
     configure<JavaPluginExtension> {
         sourceCompatibility = JavaVersion.VERSION_11
