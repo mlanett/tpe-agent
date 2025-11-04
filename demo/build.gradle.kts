@@ -2,7 +2,7 @@ plugins {
     application
 }
 
-val AGENT = if (true) ":tpe-agent" else ":monitoring-agent"
+val AGENT = if (false) ":tpe-agent" else ":monitoring-agent"
 
 dependencies {
     implementation(project(AGENT))
