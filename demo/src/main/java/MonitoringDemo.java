@@ -1,5 +1,3 @@
-package com.mlanett.demo;
-
 import com.mlanett.tpe.monitoring.ThreadPoolExecutorMetrics;
 import com.mlanett.tpe.monitoring.ThreadPoolExecutorRegistry;
 
@@ -15,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class MonitoringDemo {
     private static final int RUN_DURATION_SECONDS = 60;
-    private static final int MONITORING_INTERVAL_SECONDS = 5;
+    private static final int MONITORING_INTERVAL_SECONDS = 2;
     private static final AtomicInteger threadCounter = new AtomicInteger(0);
 
     private final List<ThreadPoolExecutor> executors = new ArrayList<>();

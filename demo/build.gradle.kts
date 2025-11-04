@@ -7,7 +7,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("com.mlanett.demo.MonitoringDemo")
+    mainClass.set("MonitoringDemo")
 }
 
 evaluationDependsOn(":tpe-agent")
