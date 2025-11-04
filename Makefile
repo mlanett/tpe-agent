@@ -15,6 +15,12 @@ clean: # Removes all build artifacts
 	./gradlew clean
 	rm -rf monitoring-agent/build build
 
+run-example:
+	./gradlew :example:run
+
+run-demo:
+	./gradlew :demo:run
+
 test: # Run all tests
 	./gradlew :monitoring-agent:test --tests ThreadPoolExecutorTest --info --rerun
 	./gradlew :example:run # End-to-end demonstration and proof that the agent is working.
