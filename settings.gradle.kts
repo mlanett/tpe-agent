@@ -1,10 +1,11 @@
 rootProject.name = "tpe-agent"
 
 include(
-    "demo",
     "example",
     "monitoring-agent",
     "tpe-agent",
+    "quickcheck-monitoring",
+    "quickcheck-tpe",
 )
 
 pluginManagement {
