@@ -13,7 +13,7 @@ repositories {
 // Version of tpe-agent to use - can be overridden with -PtpeAgentVersion=x.y.z
 val AGENT_VERSION: String = project.findProperty("tpeAgentVersion") as String? ?: "0.0.15"
 
-val agentConfiguration: Configuration? = 
+val agentConfiguration: Configuration = 
     configurations.create("agent").apply {
         isCanBeConsumed = false
         isCanBeResolved = true
@@ -34,7 +34,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("mlanett.tpe_agent.example.ExampleApplication")
+    mainClass.set("ExampleApplication")
 }
 
 // Configure Java version

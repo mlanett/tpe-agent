@@ -1,5 +1,3 @@
-package mlanett.tpe_agent.example;
-
 import mlanett.tpe_agent.ThreadPoolExecutorMetrics;
 import mlanett.tpe_agent.ThreadPoolExecutorRegistry;
 
