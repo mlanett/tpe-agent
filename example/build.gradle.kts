@@ -11,33 +11,17 @@ repositories {
 }
 
 // Version of tpe-agent to use - can be overridden with -PtpeAgentVersion=x.y.z
-// Defaults to the root project version if available locally, otherwise latest published version
-val tpeAgentVersion: String =
-    project.findProperty("tpeAgentVersion") as String? ?: rootProject.version.toString()
+val AGENT_VERSION: String = project.findProperty("tpeAgentVersion") as String? ?: "0.0.15"
 
-val agentProjectPath = ":monitoring-agent"
-val agentProject = rootProject.findProject(agentProjectPath)
-
-if (agentProject != null) {
-    evaluationDependsOn(agentProjectPath)
-}
-
-val agentConfiguration: Configuration? = if (agentProject == null) {
+val agentConfiguration: Configuration? = 
     configurations.create("agent").apply {
         isCanBeConsumed = false
         isCanBeResolved = true
         isTransitive = false
     }
-} else {
-    null
-}
 
 dependencies {
-    if (agentProject != null) {
-        implementation(project(agentProjectPath))
-    } else {
-        implementation("io.github.mlanett:tpe-agent:$tpeAgentVersion")
-    }
+    implementation("io.github.mlanett:tpe-agent:$AGENT_VERSION")
 
     // Test dependencies
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.1")
@@ -45,7 +29,7 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.1")
 
     if (agentConfiguration != null) {
-        add(agentConfiguration.name, "io.github.mlanett:tpe-agent:$tpeAgentVersion:agent@jar")
+        add(agentConfiguration.name, "io.github.mlanett:tpe-agent:$AGENT_VERSION:agent@jar")
     }
 }
 
@@ -60,26 +44,12 @@ java {
 }
 
 fun resolveAgentJar(): File {
-    return if (agentProject != null) {
-        project(agentProjectPath)
-            .tasks
-            .named<Jar>("agentJar")
-            .get()
-            .archiveFile
-            .get()
-            .asFile
-    } else {
-        checkNotNull(agentConfiguration).singleFile
-    }
+    return checkNotNull(agentConfiguration).singleFile
 }
 
 tasks.test {
     useJUnitPlatform()
-    if (agentProject != null) {
-        dependsOn(project(agentProjectPath).tasks.named("agentJar"))
-    } else {
-        dependsOn(agentConfiguration)
-    }
+    dependsOn(agentConfiguration)
 
     doFirst {
         val agentJar = resolveAgentJar().absolutePath
@@ -91,11 +61,7 @@ tasks.test {
 }
 
 tasks.named<JavaExec>("run") {
-    if (agentProject != null) {
-        dependsOn(project(agentProjectPath).tasks.named("agentJar"))
-    } else {
-        dependsOn(agentConfiguration)
-    }
+    dependsOn(agentConfiguration)
 
     doFirst {
         val agentJar = resolveAgentJar().absolutePath
