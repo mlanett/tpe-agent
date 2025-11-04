@@ -13,7 +13,7 @@ build: # Compiles the code and builds all artifacts
 
 clean: # Removes all build artifacts
 	./gradlew clean
-	rm -rf monitoring-agent/build build
+	rm -rf */bin */build build
 
 run-example:
 	./gradlew :example:run
