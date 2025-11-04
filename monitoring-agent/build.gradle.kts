@@ -8,6 +8,10 @@ plugins {
     id("com.vanniktech.maven.publish") version "0.34.0"
 }
 
+base {
+    archivesName.set("tpe-agent")
+}
+
 dependencies {
     implementation("net.bytebuddy:byte-buddy:1.15.3")
     implementation("net.bytebuddy:byte-buddy-agent:1.15.3")
