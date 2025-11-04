@@ -4,23 +4,6 @@ plugins {
     `java-library`
 }
 
-/*
- * Temporary (until this module is extracted):
- * The root project applies the Kotlin JVM plugin to every subproject,
- * which forces its BOM into our shadow jar file.
- * Thus, we must UNDO it.
- */
-
-plugins.withId("org.jetbrains.kotlin.jvm") {
-    // Turn off Kotlin for this project
-    tasks.named("compileKotlin") { enabled = false }
-    tasks.named("compileTestKotlin") { enabled = false }
-
-    configurations.all {
-        exclude(group = "org.jetbrains.kotlin")
-    }
-}
-
 dependencies {
     implementation("net.bytebuddy:byte-buddy:1.15.3")
     implementation("net.bytebuddy:byte-buddy-agent:1.15.3")
