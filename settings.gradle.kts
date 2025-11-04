@@ -2,7 +2,7 @@ rootProject.name = "tpe-agent"
 
 include(
     "demo",
-    "example",
+    // "example",
     "monitoring-agent",
     "tpe-agent",
 )
