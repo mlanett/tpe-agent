@@ -9,6 +9,7 @@ help:
 	@echo "  patch    - Increments the patch version in build.gradle.kts"
 
 build: # Compiles the code and builds all artifacts
+	./gradlew assemble
 	./gradlew build
 
 clean: # Removes all build artifacts
@@ -19,12 +20,11 @@ run-example:
 	./gradlew :example:run
 
 run-demo:
-	./gradlew :demo:run
+	./gradlew :quickcheck-original:run
+	./gradlew :quickcheck-agent:run
 
 test: # Run all tests
-	./gradlew :monitoring-agent:test --tests ThreadPoolExecutorTest --info --rerun
-	./gradlew :quickcheck-tpe:run # End-to-end demonstration and proof that the agent is working.
-	./gradlew :quickcheck-monitoring:run # End-to-end demonstration and proof that the agent is working.
+	./gradlew :monitoring-agent:test --rerun
 	./gradlew :example:run # End-to-end demonstration and proof that the agent is working.
 
 publish:
