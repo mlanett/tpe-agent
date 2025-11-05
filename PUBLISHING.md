@@ -107,14 +107,19 @@ signing.password=your-pgp-passphrase
 4. GitHub Actions will automatically:
    - Build the project
    - Sign all artifacts
-   - Publish to Maven Central (auto-released)
+   - Upload to Maven Central Portal
    - Create a GitHub Release with the agent JAR attached
 
-5. Verify the release:
-   - Check GitHub Actions for build status
+5. **Manual approval required**: After GitHub Actions completes:
    - Visit [central.sonatype.com](https://central.sonatype.com/) → Deployments
+   - Find your deployment (it will be in "pending" status)
+   - Click the "Publish" button to approve the release
+   - The portal will then sync your artifacts to Maven Central
+
+6. Verify the release:
+   - Check GitHub Actions for build status
    - Check GitHub Releases page
-   - Within ~10-30 minutes, the artifact will appear on [Maven Central](https://central.sonatype.com/artifact/mlanett/tpe-agent)
+   - After manual approval, within ~10-30 minutes, the artifact will appear on [Maven Central](https://central.sonatype.com/artifact/io.github.mlanett/tpe-agent)
 
 ### Option 2: Manual Local Publishing
 
@@ -122,8 +127,11 @@ signing.password=your-pgp-passphrase
 # Build and publish
 ./gradlew publish
 
-# This will publish to Maven Central (if credentials are configured)
-# You may need to manually create a GitHub Release for the agent JAR
+# This will upload artifacts to Maven Central Portal (if credentials are configured)
+# After publishing, you must manually approve the release:
+# 1. Visit https://central.sonatype.com/ → Deployments
+# 2. Find your deployment and click "Publish"
+# 3. Wait ~10-30 minutes for sync to Maven Central
 ```
 
 ## After Publishing
@@ -158,9 +166,12 @@ dependencies {
 
 ### Publishing succeeds but artifact not visible
 
-- Maven Central sync can take 10-30 minutes
+- **Important**: You must manually approve the release in the Central Publisher Portal
+  - Visit [central.sonatype.com](https://central.sonatype.com/) → Deployments
+  - Find your deployment and click "Publish" to approve
+- After approval, Maven Central sync can take 10-30 minutes
 - Check central.sonatype.com → Deployments for status
-- First-time publishing may require manual verification
+- First-time publishing may require additional verification
 
 ## Reference
 
