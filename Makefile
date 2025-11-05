@@ -20,8 +20,7 @@ run-example:
 	./gradlew :example:run
 
 run-demo:
-	./gradlew :quickcheck-original:run
-	./gradlew :quickcheck-agent:run
+	./gradlew :quickcheck:run
 
 test: # Run all tests
 	./gradlew :monitoring-agent:test --rerun
