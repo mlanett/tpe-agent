@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Updated the example code to use 0.0.16.
+
+## [0.0.16]
+
+Fixed publishing - this is the first release which published correctly.
+
 ## [0.0.1]
 
 ### Added
