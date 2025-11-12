@@ -5,6 +5,10 @@ plugins {
     application
 }
 
+application {
+    mainClass.set("ExampleApplication")
+}
+
 repositories {
     mavenLocal()  // Check local Maven repository first (for testing unpublished versions)
     mavenCentral()
@@ -29,10 +33,6 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.1")
 
     add(agentConfiguration.name, "io.github.mlanett:tpe-agent:$AGENT_VERSION:agent@jar")
-}
-
-application {
-    mainClass.set("ExampleApplication")
 }
 
 // Configure Java version
