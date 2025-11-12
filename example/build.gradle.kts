@@ -14,7 +14,7 @@ repositories {
     mavenCentral()
 }
 
-val AGENT_VERSION = "0.0.16"
+val AGENT_VERSION = "0.0.17"
 
 val agentConfiguration: Configuration = 
     configurations.create("agent").apply {
