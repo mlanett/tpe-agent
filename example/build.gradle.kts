@@ -34,12 +34,6 @@ dependencies {
     add(agentConfiguration.name, "io.github.mlanett:tpe-agent:$AGENT_VERSION:agent@jar")
 }
 
-// Configure Java version
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
-
 fun resolveAgentJar(): File {
     return checkNotNull(agentConfiguration).singleFile
 }
