@@ -14,8 +14,7 @@ repositories {
     mavenCentral()
 }
 
-// Version of tpe-agent to use - can be overridden with -PtpeAgentVersion=x.y.z
-val AGENT_VERSION: String = project.findProperty("tpeAgentVersion") as String? ?: "0.0.16"
+val AGENT_VERSION = "0.0.16"
 
 val agentConfiguration: Configuration = 
     configurations.create("agent").apply {
