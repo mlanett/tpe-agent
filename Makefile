@@ -39,6 +39,15 @@ patch:
 	echo "Updating version from $$current_version to $$new_version"; \
 	sed -i.bak "s/^version = \"$$current_version\"/version = \"$$new_version\"/" build.gradle.kts && rm build.gradle.kts.bak
 
+minor:
+	@current_version=$$(grep '^version = ' build.gradle.kts | sed 's/version = "\(.*\)"/\1/'); \
+	major=$$(echo $$current_version | cut -d. -f1); \
+	minor=$$(echo $$current_version | cut -d. -f2); \
+	new_minor=$$((minor + 1)); \
+	new_version="$$major.$$new_minor.0"; \
+	echo "Updating version from $$current_version to $$new_version"; \
+	sed -i.bak "s/^version = \"$$current_version\"/version = \"$$new_version\"/" build.gradle.kts && rm build.gradle.kts.bak
+
 tag: # Commit and publish the current version. Use in combination e.g. make patch tag
 	@current_version=$$(grep '^version = ' build.gradle.kts | sed 's/version = "\(.*\)"/\1/'); \
 	git commit -m v$$current_version build.gradle.kts || true; \
