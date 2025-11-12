@@ -183,7 +183,7 @@ public class Demo {
             ThreadPoolExecutorMetrics metrics = entry.getValue();
             System.out.printf("%-20s %8d %8d %12d %12d %6d %6d %6d%n",
                 entry.getKey(),
-                metrics.getQueueSize(),
+                metrics.getQueuedCount(),
                 metrics.getActiveCount(),
                 metrics.getCompletedTaskCount(),
                 metrics.getTaskCount(),

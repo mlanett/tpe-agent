@@ -65,7 +65,7 @@ class ThreadPoolExecutorTest {
         ThreadPoolExecutorMetrics summary = executors.get(firstPool);
 
         assertNotNull(summary);
-        assertTrue(summary.getQueueSize() >= 0, "Queue size should be non-negative");
+        assertTrue(summary.getQueuedCount() >= 0, "Queue size should be non-negative");
         assertTrue(summary.getActiveCount() >= 0, "Active count should be non-negative");
         assertTrue(summary.getCompletedTaskCount() >= 0, "Completed task count should be non-negative");
         assertTrue(summary.getCorePoolSize() > 0, "Core pool size should be positive");

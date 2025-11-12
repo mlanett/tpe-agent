@@ -150,7 +150,7 @@ public class MonitoringService {
             ThreadPoolExecutorMetrics metrics = entry.getValue();
 
             System.out.printf("Pool: %s%n", poolName);
-            System.out.printf("  Queue size: %d%n", metrics.getQueueSize());
+            System.out.printf("  Queue size: %d%n", metrics.getQueuedCount());
             System.out.printf("  Active threads: %d%n", metrics.getActiveCount());
             System.out.printf("  Pool size: %d (core=%d, max=%d)%n",
                 metrics.getPoolSize(),
@@ -312,7 +312,7 @@ public class ExampleApplication {
             
             System.out.printf("  %s:\n", poolName);
             System.out.printf("    Queue: %d | Active: %d/%d | Pool: %d (core=%d, max=%d) | Tasks: %d completed, %d total\n",
-                metrics.getQueueSize(),
+                metrics.getQueuedCount(),
                 metrics.getActiveCount(),
                 metrics.getPoolSize(),
                 metrics.getPoolSize(),
@@ -373,7 +373,7 @@ Immutable snapshot of a ThreadPoolExecutor's metrics.
 
 **Methods:**
 
-- `int getQueueSize()` - Number of tasks waiting in the queue
+- `int getQueuedCount()` - Number of tasks waiting in the queue
 - `int getActiveCount()` - Number of threads actively executing tasks
 - `long getCompletedTaskCount()` - Total number of completed tasks
 - `long getTaskCount()` - Total number of tasks (completed + active + queued)

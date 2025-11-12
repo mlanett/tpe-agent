@@ -7,7 +7,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * Summary of ThreadPoolExecutor metrics.
  */
 public final class ThreadPoolExecutorMetrics {
-    private final int queueSize;
+    private final int queuedCount;
     private final int activeCount;
     private final long completedTaskCount;
     private final long taskCount;
@@ -16,14 +16,14 @@ public final class ThreadPoolExecutorMetrics {
     private final int poolSize;
 
     public ThreadPoolExecutorMetrics(
-            int queueSize,
+            int queuedCount,
             int activeCount,
             long completedTaskCount,
             long taskCount,
             int corePoolSize,
             int maximumPoolSize,
             int poolSize) {
-        this.queueSize = queueSize;
+        this.queuedCount = queuedCount;
         this.activeCount = activeCount;
         this.completedTaskCount = completedTaskCount;
         this.taskCount = taskCount;
@@ -44,8 +44,11 @@ public final class ThreadPoolExecutorMetrics {
         );
     }
 
-    public int getQueueSize() {
-        return queueSize;
+    /**
+     * The number of tasks waiting in the queue.
+     */
+    public int getQueuedCount() {
+        return queuedCount;
     }
 
     /**
@@ -106,7 +109,7 @@ public final class ThreadPoolExecutorMetrics {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ThreadPoolExecutorMetrics that = (ThreadPoolExecutorMetrics) o;
-        return queueSize == that.queueSize &&
+        return queuedCount == that.queuedCount &&
                activeCount == that.activeCount &&
                completedTaskCount == that.completedTaskCount &&
                taskCount == that.taskCount &&
@@ -117,7 +120,6 @@ public final class ThreadPoolExecutorMetrics {
 
     @Override
     public int hashCode() {
-        return Objects.hash(queueSize, activeCount, completedTaskCount, taskCount,
-                           corePoolSize, maximumPoolSize, poolSize);
+        return Objects.hash(queuedCount, activeCount, completedTaskCount, taskCount, corePoolSize, maximumPoolSize, poolSize);
     }
 }

@@ -77,7 +77,7 @@ class ExampleApplicationTest {
         assertNotNull(metrics, "Metrics should be available");
         
         // Verify metric values are reasonable
-        assertTrue(metrics.getQueueSize() >= 0, "Queue size should be non-negative");
+        assertTrue(metrics.getQueuedCount() >= 0, "Queue size should be non-negative");
         assertTrue(metrics.getActiveCount() >= 0, "Active count should be non-negative");
         assertTrue(metrics.getCompletedTaskCount() >= 0, "Completed task count should be non-negative");
         assertTrue(metrics.getCorePoolSize() > 0, "Core pool size should be positive");

@@ -150,7 +150,7 @@ public class ExampleApplication {
             
             System.out.printf("  %s:\n", poolName);
             System.out.printf("    Queue: %d | Active: %d/%d | Pool: %d (core=%d, max=%d) | Tasks: %d completed, %d total\n",
-                metrics.getQueueSize(),
+                metrics.getQueuedCount(),
                 metrics.getActiveCount(),
                 metrics.getPoolSize(),
                 metrics.getPoolSize(),
