@@ -48,26 +48,44 @@ public final class ThreadPoolExecutorMetrics {
         return queueSize;
     }
 
+    /**
+     * The approximate number of threads that are actively executing tasks.
+     */
     public int getActiveCount() {
         return activeCount;
     }
 
+    /**
+     * The approximate total number of tasks that have completed execution.
+     */
     public long getCompletedTaskCount() {
         return completedTaskCount;
     }
 
+    /**
+     * The approximate total number of tasks that have ever been scheduled for execution (e.g. completed + active + queued).
+     */
     public long getTaskCount() {
         return taskCount;
     }
 
+    /**
+     * The number of threads to keep in the pool, even if they are idle, unless allowCoreThreadTimeOut is set.
+     */
     public int getCorePoolSize() {
         return corePoolSize;
     }
 
+    /**
+     * The maximum number of threads allowed in the pool.
+     */
     public int getMaximumPoolSize() {
         return maximumPoolSize;
     }
 
+    /**
+     * The current number of threads in the pool.
+     */
     public int getPoolSize() {
         return poolSize;
     }
