@@ -29,6 +29,9 @@ test: # Run all tests
 publish:
 	./gradlew publish
 
+publish-local:
+	./gradlew :monitoring-agent:publishToMavenLocal
+
 patch:
 	@current_version=$$(grep '^version = ' build.gradle.kts | sed 's/version = "\(.*\)"/\1/'); \
 	major=$$(echo $$current_version | cut -d. -f1); \
