@@ -35,7 +35,7 @@ repositories {
 }
 
 // Version of tpe-agent to use - can be overridden with -PtpeAgentVersion=x.y.z
-val AGENT_VERSION: String = project.findProperty("tpeAgentVersion") as String? ?: "0.0.17"
+val AGENT_VERSION: String = project.findProperty("tpeAgentVersion") as String? ?: "0.1.0"
 
 val agentConfiguration: Configuration = 
     configurations.create("agent").apply {
@@ -87,7 +87,7 @@ Add the dependency to your `pom.xml`:
     <dependency>
         <groupId>io.github.mlanett</groupId>
         <artifactId>tpe-agent</artifactId>
-        <version>0.0.17</version>
+        <version>0.1.0</version>
     </dependency>
 </dependencies>
 ```
@@ -103,13 +103,13 @@ There are two ways to use the agent:
 Use the `-javaagent` JVM flag to load the agent at startup. This ensures all ThreadPoolExecutors are tracked from the beginning:
 
 ```bash
-java -javaagent:/path/to/tpe-agent-0.0.17-agent.jar -jar your-application.jar
+java -javaagent:/path/to/tpe-agent-0.1.0-agent.jar -jar your-application.jar
 ```
 
 Or download from [GitHub Releases](https://github.com/mlanett/tpe-agent/releases) and use:
 
 ```bash
-java -javaagent:./tpe-agent-0.0.17-agent.jar -jar your-application.jar
+java -javaagent:./tpe-agent-0.1.0-agent.jar -jar your-application.jar
 ```
 
 #### Option 2: Programmatic Installation
