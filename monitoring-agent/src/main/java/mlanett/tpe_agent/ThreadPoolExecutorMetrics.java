@@ -95,13 +95,8 @@ public final class ThreadPoolExecutorMetrics {
 
     @Override
     public String toString() {
-        return "ThreadPoolExecutor[queue=" + queueSize +
-               ", active=" + activeCount +
-               ", completed=" + completedTaskCount +
-               ", total=" + taskCount +
-               ", core=" + corePoolSize +
-               ", max=" + maximumPoolSize +
-               ", current=" + poolSize + "]";
+        return String.format("ThreadPoolExecutor[queued=%d, active=%d, completed=%d, core=%d, max=%d, current=%d]",
+            queuedCount, activeCount, completedTaskCount, corePoolSize, maximumPoolSize, poolSize);
     }
 
     @Override
