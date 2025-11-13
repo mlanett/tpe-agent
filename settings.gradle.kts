@@ -1,9 +1,10 @@
 rootProject.name = "tpe-agent"
 
 include(
+    "agent",
+    "bootstrap-api",
     "example",
-    "monitoring-agent",
-    "quickcheck",
+    "prerelease",
 )
 
 pluginManagement {

@@ -43,10 +43,10 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            monitoring-agent/build/libs/monitoring-agent-${{ steps.get_version.outputs.VERSION }}.jar
-            monitoring-agent/build/libs/monitoring-agent-${{ steps.get_version.outputs.VERSION }}-sources.jar
-            monitoring-agent/build/libs/monitoring-agent-${{ steps.get_version.outputs.VERSION }}-javadoc.jar
-            monitoring-agent/build/libs/monitoring-agent-${{ steps.get_version.outputs.VERSION }}-agent.jar
+            agent/build/libs/agent-${{ steps.get_version.outputs.VERSION }}.jar
+            agent/build/libs/agent-${{ steps.get_version.outputs.VERSION }}-sources.jar
+            agent/build/libs/agent-${{ steps.get_version.outputs.VERSION }}-javadoc.jar
+            agent/build/libs/agent-${{ steps.get_version.outputs.VERSION }}-agent.jar
           generate_release_notes: true
           draft: false
           prerelease: false

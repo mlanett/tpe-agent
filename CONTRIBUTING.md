@@ -83,7 +83,7 @@ cd tpe-agent
 
 ```
 tpe-agent/
-├── monitoring-agent/           # Main agent module
+├── agent/           # Main agent module
 │   └── src/main/java/
 │       └── mlanett/tpe_agent/
 │           ├── ThreadPoolExecutorAgent.java      # Main agent entry point

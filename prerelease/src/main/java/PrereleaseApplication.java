@@ -19,7 +19,7 @@ import mlanett.tpe_agent.IThreadPoolMetrics;
  * - Periodically reports metrics to stdout
  * - Runs for approximately 60 seconds
  */
-public class ExampleApplication {
+public class PrereleaseApplication {
     
     private static final long RUN_DURATION_SECONDS = 10;
     private static final long REPORT_INTERVAL_SECONDS = 5;
@@ -194,4 +194,3 @@ public class ExampleApplication {
         }
     }
 }
-

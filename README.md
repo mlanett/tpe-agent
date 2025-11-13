@@ -35,7 +35,7 @@ repositories {
 }
 
 // Version of tpe-agent to use - can be overridden with -PtpeAgentVersion=x.y.z
-val AGENT_VERSION: String = project.findProperty("tpeAgentVersion") as String? ?: "0.1.0"
+val AGENT_VERSION: String = "0.2.0"
 
 val agentConfiguration: Configuration = 
     configurations.create("agent").apply {
@@ -92,7 +92,7 @@ Add the dependency to your `pom.xml`:
 </dependencies>
 ```
 
-**Note**: The library is published to Maven Central, so no additional repository configuration is needed!
+Note: The library is published to Maven Central, so no additional repository configuration is needed!
 
 ### Usage
 
@@ -128,7 +128,7 @@ public class Application {
 }
 ```
 
-**Note**: This requires Java 9+ with the `jdk.attach.allowAttachSelf` system property or the `-XX:+EnableDynamicAgentLoading` flag. The `-javaagent` approach (Option 1) is recommended as it's simpler and doesn't require these additional flags.
+Note: This requires Java 9+ with the `jdk.attach.allowAttachSelf` system property or the `-XX:+EnableDynamicAgentLoading` flag. The `-javaagent` approach (Option 1) is recommended as it's simpler and doesn't require these additional flags.
 
 ### Collecting Metrics
 
@@ -164,6 +164,28 @@ public class MonitoringService {
 }
 ```
 
+### Example Application (independent consumer)
+
+This repository includes an `example` module that acts as an independent consumer of the published `io.github.mlanett:tpe-agent` artifacts. It does not use any `project()` dependencies on internal modules.
+
+To build and run the example against the locally built agent:
+
+```bash
+./gradlew :agent:publishToMavenLocal
+./gradlew :example:build
+./gradlew :example:run
+```
+
+This workflow:
+
+- Publishes the current `agent` module as `io.github.mlanett:tpe-agent:${version}` (library JAR
+  plus `:agent` classifier) into your local Maven repository.
+- Builds the `example` module, which resolves `io.github.mlanett:tpe-agent:${version}` from
+  `mavenLocal()` like any external application would.
+- Runs the example with the agent attached via `-javaagent` (managed by the Gradle `run` task).
+
+For more details, see `example/README.md`.
+
 ## API Reference
 
 ### `ThreadPoolExecutorAgent`
@@ -185,7 +207,7 @@ Registry of all discovered ThreadPoolExecutor instances.
 
 Immutable snapshot of a ThreadPoolExecutor's metrics.
 
-**Methods:**
+Methods:
 
 - `int getQueuedCount()` - Number of tasks waiting in the queue
 - `int getActiveCount()` - Number of threads actively executing tasks
@@ -204,6 +226,10 @@ The agent uses [ByteBuddy](https://bytebuddy.net/) to instrument the `ThreadPool
 3. Uses weak references to avoid memory leaks when pools are garbage collected
 4. Automatically derives pool names from ThreadFactory naming or class names
 
+## Dependencies
+
+TPE-Agent only depends on ByteBuddy, so is not increasing your service's transitive dependency footprint by much.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit issues or pull requests.
@@ -219,20 +245,6 @@ Contributions are welcome! Please feel free to submit issues or pull requests.
 ```bash
 ./gradlew test
 ```
-
-### Publishing
-
-To publish to GitHub Packages, you need:
-
-1. A GitHub Personal Access Token with `write:packages` scope
-2. Set credentials in `~/.gradle/gradle.properties`:
-
-   ```properties
-   gpr.user=your-github-username
-   gpr.token=your-personal-access-token
-   ```
-
-3. Run: `./gradlew publish`
 
 ## License
 

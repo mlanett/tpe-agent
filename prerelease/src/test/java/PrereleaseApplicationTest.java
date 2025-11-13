@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * - ThreadPoolExecutor instances are automatically discovered
  * - Library classes are accessible and work correctly
  */
-class ExampleApplicationTest {
+class PrereleaseApplicationTest {
 
     @Test
     void agentDiscoversThreadPoolExecutorsAutomatically() throws InterruptedException {
@@ -121,4 +121,3 @@ class ExampleApplicationTest {
         };
     }
 }
-

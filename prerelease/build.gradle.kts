@@ -6,16 +6,13 @@ plugins {
 }
 
 application {
-    mainClass.set("ExampleApplication")
+    mainClass.set("PrereleaseApplication")
 }
 
 repositories {
     mavenLocal()  // Check local Maven repository first (for testing unpublished versions)
     mavenCentral()
 }
-
-// Use the same version as the root project so example always targets the locally built agent.
-val AGENT_VERSION: String = rootProject.version.toString()
 
 val tpe_javaagent: Configuration = 
     configurations.create("agent").apply {
@@ -25,13 +22,21 @@ val tpe_javaagent: Configuration =
     }
 
 dependencies {
-    implementation("io.github.mlanett:tpe-agent:$AGENT_VERSION")
-    add(tpe_javaagent.name, "io.github.mlanett:tpe-agent:$AGENT_VERSION:agent@jar")
+    // Use the local agent module for API classes
+    implementation(project(":agent"))
+    
+    // Bootstrap API classes are needed for compile-time access to IThreadPoolMetrics, etc.
+    // At runtime these come from the agent JAR on the bootstrap classpath
+    compileOnly(project(":bootstrap-api"))
+    testImplementation(project(":bootstrap-api"))
 
     // Test dependencies
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.1")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.1")
+
+    // Use the local agent JAR
+    add(tpe_javaagent.name, project(path = ":agent", configuration = "agentJar"))
 }
 
 fun resolveAgentJar(): File {
@@ -68,7 +73,6 @@ tasks {
     }
 
     assemble {
-        dependsOn(":agent:publishToMavenLocal")
         finalizedBy(copyTpeAgent)
     }
 }
