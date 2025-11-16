@@ -7,7 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Updated the example code to use 0.0.16.
+## [0.2.0]
+
+Major refactor. Extracted core classes as interfaces to solve classloader issues.
+
+Renamed gradle modules.
+
+## [0.1.0]
+
+Minor API change: renamed ThreadPoolExecutorMetrics.getQueuedCount (was getQueueSize).
+
+Updated the example code to use 0.1.0.
+
+Updated docs.
+
+Deleted unused code.
 
 ## [0.0.16]
 

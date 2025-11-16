@@ -19,8 +19,9 @@ clean: # Removes all build artifacts
 	rm -rf */bin */build build
 
 run-example: build # Run the example application with standalone Java (no Gradle classloader)
-	java -javaagent:agent/build/libs/tpe-agent-0.1.0-agent.jar \
-	     -cp example/build/libs/example-0.1.0.jar:api/build/libs/api-0.1.0.jar:bootstrap-api/build/libs/bootstrap-api-0.1.0.jar \
+	./gradlew :example:assemble
+	java -javaagent:agent/build/libs/tpe-agent-0.2.0-agent.jar \
+	     -cp example/build/libs/example-0.2.0.jar:agent/build/libs/tpe-agent-0.2.0.jar \
 	     ExampleApplication
 
 run-prerelease: # Run the prerelease application
