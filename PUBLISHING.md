@@ -33,7 +33,7 @@ gpg --armor --export-secret-keys YOUR_KEY_ID > private-key.asc
 # Your passphrase is your SIGNING_PASSWORD
 ```
 
-**IMPORTANT: Upload your public key to a keyserver**
+IMPORTANT: Upload your public key to a keyserver
 
 Maven Central requires your public key to be available on a PGP keyserver. After generating your key:
 
@@ -53,7 +53,7 @@ gpg --keyserver keys.openpgp.org --send-keys YOUR_KEY_ID
 gpg --keyserver keyserver.ubuntu.com --recv-keys YOUR_KEY_ID
 ```
 
-**Note**: Keyserver propagation can take several minutes to hours. Wait for the upload to propagate before publishing.
+Note: Keyserver propagation can take several minutes to hours. Wait for the upload to propagate before publishing.
 
 ### 3. Configure Secrets
 
@@ -61,10 +61,10 @@ gpg --keyserver keyserver.ubuntu.com --recv-keys YOUR_KEY_ID
 
 Add these secrets to your GitHub repository (Settings → Secrets and variables → Actions):
 
-1. **MAVEN_CENTRAL_USERNAME**: Your Maven Central username (from central.sonatype.com)
-2. **MAVEN_CENTRAL_PASSWORD**: Your Maven Central password (generate a token at central.sonatype.com → View Account → Generate User Token)
-3. **SIGNING_KEY**: Contents of your `private-key.asc` file (entire content including `-----BEGIN PGP PRIVATE KEY BLOCK-----`)
-4. **SIGNING_PASSWORD**: Your PGP key passphrase
+1. MAVEN_CENTRAL_USERNAME: Your Maven Central username (from central.sonatype.com)
+2. MAVEN_CENTRAL_PASSWORD: Your Maven Central password (generate a token at central.sonatype.com → View Account → Generate User Token)
+3. SIGNING_KEY: Contents of your `private-key.asc` file (entire content including `-----BEGIN PGP PRIVATE KEY BLOCK-----`)
+4. SIGNING_PASSWORD: Your PGP key passphrase
 
 #### For Local Publishing (Optional)
 
@@ -77,7 +77,7 @@ signing.key=-----BEGIN PGP PRIVATE KEY BLOCK-----\n...\n-----END PGP PRIVATE KEY
 signing.password=your-pgp-passphrase
 ```
 
-**Note**: For the signing key in gradle.properties, replace actual newlines with `\n`.
+Note: For the signing key in gradle.properties, replace actual newlines with `\n`.
 
 ## Publishing a Release
 
@@ -110,7 +110,7 @@ signing.password=your-pgp-passphrase
    - Upload to Maven Central Portal
    - Create a GitHub Release with the agent JAR attached
 
-5. **Manual approval required**: After GitHub Actions completes:
+5. Manual approval required: After GitHub Actions completes:
    - Visit [central.sonatype.com](https://central.sonatype.com/) → Deployments
    - Find your deployment (it will be in "pending" status)
    - Click the "Publish" button to approve the release
@@ -166,7 +166,7 @@ dependencies {
 
 ### Publishing succeeds but artifact not visible
 
-- **Important**: You must manually approve the release in the Central Publisher Portal
+- Important: You must manually approve the release in the Central Publisher Portal
   - Visit [central.sonatype.com](https://central.sonatype.com/) → Deployments
   - Find your deployment and click "Publish" to approve
 - After approval, Maven Central sync can take 10-30 minutes
