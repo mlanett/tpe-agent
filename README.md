@@ -103,13 +103,13 @@ There are two ways to use the agent:
 Use the `-javaagent` JVM flag to load the agent at startup. This ensures all ThreadPoolExecutors are tracked from the beginning:
 
 ```bash
-java -javaagent:/path/to/tpe-agent-0.1.0-agent.jar -jar your-application.jar
+java -javaagent:/path/to/tpe-agent-0.2.0-agent.jar -jar your-application.jar
 ```
 
 Or download from [GitHub Releases](https://github.com/mlanett/tpe-agent/releases) and use:
 
 ```bash
-java -javaagent:./tpe-agent-0.1.0-agent.jar -jar your-application.jar
+java -javaagent:./tpe-agent-0.2.0-agent.jar -jar your-application.jar
 ```
 
 #### Option 2: Programmatic Installation

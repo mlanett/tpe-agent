@@ -15,7 +15,7 @@ make run
 After building (`make build` in the project root):
 
 ```bash
-java -javaagent:../agent/build/libs/tpe-agent-0.1.0-agent.jar \
+java -javaagent:../agent/build/libs/tpe-agent-0.2.0-agent.jar \
      -cp build/libs/example-0.1.0.jar:../api/build/libs/api-0.1.0.jar:../bootstrap-api/build/libs/bootstrap-api-0.1.0.jar \
      ExampleApplication
 ```
